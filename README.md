@@ -16,15 +16,13 @@ time python3 ext_merge_sort.py
 time python3 async_ext_merge_sort.py
 ```
 
-Save the output of each run in time.txt and async_time.txt.
+List of Files:
 
-Commit your changes into your public Github repository (cmpe273-lab1) and your final commit should have:
-
-1. ext_merge_sort.py
-2. async_ext_merge_sort.py
-3. all unsorted_*.txt files
-4. all sorted_.txt files
-4. time.txt and async_time.txt
+1. [ext_merge_sort.py](https://github.com/ihetal/cmpe273-lab1/blob/master/ext_merge_sort.py)
+2. [async_ext_merge_sort.py](https://github.com/ihetal/cmpe273-lab1/blob/master/async_ext_merge_sort.py)
+3. [all unsorted_*.txt files](https://github.com/ihetal/cmpe273-lab1/tree/master/input)
+4. [all sorted_.txt files](https://github.com/ihetal/cmpe273-lab1/tree/master/output)
+4. [time.txt](https://github.com/ihetal/cmpe273-lab1/blob/master/time.txt) and [async_time.txt](https://github.com/ihetal/cmpe273-lab1/blob/master/async_time.txt)
 
 
 
