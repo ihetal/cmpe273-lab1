@@ -32,23 +32,24 @@ def write_result(output):
         
 def sortedMerge(list1, list2): 
     # Sorting a[] and b[] 
-    i = 0
-    j = 0
-    merged_sorted_list = []
-    while (i < len(list1) and j < len(list2)):
+    i,j = 0,0
+    n = len(list1)
+    m =len(list2)
+    merged = []
+    while (i < n and j < m):
         if (list1[i] < list2[j]):
-            merged_sorted_list.append(list1[i])
+            merged.append(list1[i])
             i += 1
         else:
-            merged_sorted_list.append(list2[j])
+            merged.append(list2[j])
             j += 1
-    while (i < len(list1)):
-        merged_sorted_list.append(list1[i])
+    while (i < n):
+        merged.append(list1[i])
         i += 1
-    while (j < len(list2)):
-        merged_sorted_list.append(list2[j])
+    while (j < m):
+        merged.append(list2[j])
         j += 1
-    return merged_sorted_list
+    return merged
 
 if __name__ == '__main__':
     main()
