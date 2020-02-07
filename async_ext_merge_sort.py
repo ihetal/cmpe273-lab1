@@ -3,31 +3,36 @@ import time
 import asyncio
 async def main():
     start = time.perf_counter()
-    input_Data = await read_Files()
-    result = sort(input_Data)
+    q = asyncio.Queue()
+    #input_Data = await read_Files()
+    inputFiles = glob.glob("input/*.txt")
+    input_Data = [asyncio.create_task(read_Files(file,q)) for file in inputFiles]
+    task = asyncio.create_task(sort(input_Data,q))
+    await asyncio.gather(*input_Data)
+    await q.join()
+    await asyncio.gather(*task)
+    result = await q.get()
     write_result(result)
     elapsed = time.perf_counter() - start
     print(f"Program completed in {elapsed:0.5f} seconds.")
 
-async def read_Files():
-    inputFiles = glob.glob("input/*.txt")
-    input_Data =[]
-    for file in inputFiles:
-        with open(file, "r") as f:
-            temp =[]
-            for line in f.readlines():
-                temp.append(int(line.strip()))
-            temp.sort()
-            input_Data.append(temp)
-    return input_Data
-def sort(input_Data):
-    no_of_files = len(input_Data)
-    interval = 1
-    while interval < no_of_files:
-        for i in range(0, no_of_files - interval, interval * 2):
-            input_Data[i] = sortedMerge(input_Data[i], input_Data[i + interval])
-        interval *= 2
-    return input_Data[0] if no_of_files > 0 else input_Data
+async def read_Files(file,q: asyncio.Queue):
+
+    with open(file, "r") as f:
+        temp =[]
+        for line in f.readlines():
+            temp.append(int(line.strip()))
+        temp.sort()
+        await q.put(temp)
+        q.task_done()
+
+async def sort(input_Data,q: asyncio.Queue):
+    while q.qsize()>1:
+        list1 =await q.get()
+        list2 = await q.get()
+        merged_File =sortedMerge(list1,list2)
+        await q.put(merged_File)
+        q.task_done()
     
 def write_result(output):
     file =open('output/async_sorted.txt','w+')
